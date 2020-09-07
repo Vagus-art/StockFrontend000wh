@@ -139,11 +139,11 @@ export function postFunctionFactory<Entity>(
 ) {
   return (data: Entity, identifier: number) => {
     //el id es un discernible, la unica forma de que sea 0 es si estoy creando un contacto nuevo
-    const method = identifier === 0 || identifier === undefined || identifier === null ? "POST" : "PUT";
+    const url = identifier === 0 || identifier === undefined || identifier === null ? dataUri : `${dataUri}/update`;
     axios
       .request({
-        url: dataUri,
-        method,
+        url,
+        method:"POST",
         data,
         headers: { Authorization: `Bearer ${token}` },
       })
@@ -161,7 +161,9 @@ export function deleteByIdFunctionFactory(
 ) {
   return (id: number) =>
     axios
-      .delete(dataUri, {
+      .request({
+        url:`${dataUri}/delete`,
+        method:"POST",
         params: { [idField]: id },
         headers: { Authorization: `Bearer ${token}` },
       })

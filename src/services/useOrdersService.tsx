@@ -129,8 +129,8 @@ const useOrdersService = () => {
   const deleteOrderProduct = useCallback(
     (data: DeleteOrderProduct) => {
       Axios.request<DeleteOrderProduct>({
-        url: `${ordersDataUri}/products`,
-        method: "DELETE",
+        url: `${ordersDataUri}/products/delete`,
+        method: "POST",
         data,
         headers: { Authorization: `Bearer ${token}` },
       }).then(() => {
